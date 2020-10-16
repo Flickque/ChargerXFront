@@ -1,0 +1,20 @@
+.search{
+    position: relative;
+    top: 0;
+    left: 0;
+    transition: all .5s;
+    width: 200px !important;
+}
+.search:focus{
+    width: 300px !important;
+    top: 0;
+    right: 100%;
+}
+.searchResult{
+    width: 100%;
+    position: absolute;
+    z-index: 123;
+    top: 75px;
+    left: 0px;
+    display: none;
+}

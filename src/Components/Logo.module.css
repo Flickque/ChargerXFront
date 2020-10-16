@@ -1,0 +1,19 @@
+.logo{
+    width: 50px;
+    margin-right: 5px;
+}
+.title{
+    font-weight: 100;
+    font-size: 20px;
+}
+.logoWrap{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.logoWrap:hover{
+    text-decoration: none;
+}
+.logoWrap .title{
+    color: #212121;
+}

@@ -1,0 +1,62 @@
+#root{
+  overflow-x: hidden;
+}
+
+#page-content{
+  width: 100%;
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+/*
+bootstrap global fix
+ */
+
+.dropdown-toggle::after{
+  display: none !important;
+}
+
+.Mainpanelwrap{
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+/* невероятный костыль */
+.navbar-expand .navbar-nav .dropdown-menu{
+  left: -150px;
+}
+
+.dropdown-item.active, .dropdown-item:active{
+  background-color: #f8f9f8;
+}
+.modal-content .badge{
+  position: relative;
+  bottom: 0px;
+  top: 12px;
+  left: 12px;
+}
+.badge{
+  padding: 5px 7px;
+  font-size: 14px;
+}
+.toast{
+  position: fixed;
+  right: 0px;
+  z-index: 10000;
+  background-color: #da1414db;
+  color: #fff;
+  top: 0px;
+}
+.toast-header{
+  background-color: #fff0;
+  color: #fff;
+}
+.jumbotron-fluid{
+  width: 100%;
+}
+
+p{
+  margin: 0px;
+}
+

@@ -1,0 +1,8 @@
+.blocked{
+    pointer-events: none;
+    background-color: #d0d0d0;
+}
+.notBlocked{
+    pointer-events: auto;
+    background-color: inherit;
+}

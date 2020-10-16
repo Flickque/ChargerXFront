@@ -1,0 +1,29 @@
+[
+
+    {
+        "path": "/",
+        "name": "Home",
+        "icon": "home",
+        "css": "",
+        "key": 1,
+        "render": "spa"
+    },
+    {
+        "path": "/chargers",
+        "name": "Test",
+        "icon": "charging-station",
+        "css": "",
+        "key": 2,
+        "render": "spa"
+    },
+    {
+        "path": "/login",
+        "name": "Login",
+        "icon": "user",
+        "css": "",
+        "key": 3,
+        "render": "spa"
+    }
+
+]
+

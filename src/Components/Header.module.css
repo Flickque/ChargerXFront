@@ -1,0 +1,24 @@
+.icon{
+    font-size: 30px;
+}
+.menu{
+    fill: #000;
+    font-size: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.headerWrap{
+    background: #f8f9f8;
+    border-bottom: 1px solid #dee2e6;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.navBar p{
+    align-items: center;
+    display: flex;
+    font-weight: 300;
+    font-size: 20px;
+}
+.navBar{
+    z-index: 1001;
+}
