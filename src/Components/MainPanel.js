@@ -4,7 +4,7 @@ import ChargerModal from "./ChargerModal";
 import styles from "./MainPanel.module.css"
 import icon from "../assets/img/petrol-station.svg"
 
-export class MainPanel extends Component {
+class MainPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,10 +16,10 @@ export class MainPanel extends Component {
             activeCharger: []
         };
 
-        this.handleMapClick = this.handleMapClick.bind(this);
-        this.onMarkerClick = this.onMarkerClick.bind(this);
-        this.onMouseoverMarker = this.onMouseoverMarker.bind(this);
-        this.onMouseoutMarker = this.onMouseoutMarker.bind(this);
+        this.handleMapClick = this.handleMapClick.bind(this)
+        this.onMarkerClick = this.onMarkerClick.bind(this)
+        this.onMouseoverMarker = this.onMouseoverMarker.bind(this)
+        this.onMouseoutMarker = this.onMouseoutMarker.bind(this)
     }
 
     handleMapClick() {
@@ -60,8 +60,6 @@ export class MainPanel extends Component {
     }
 
     render() {
-
-
         return (
             <div>
 
@@ -80,11 +78,11 @@ export class MainPanel extends Component {
 
                 <Map
                     google={this.props.google}
-                    zoom={8}
+                    zoom={this.props.map.zoom}
                     onClick={this.onMapClicked}
                     initialCenter={{
-                        lat:65.059274,
-                        lng:25.455584
+                        lat:this.props.map.lat,
+                        lng:this.props.map.lng
                     }}
                     className={styles.map}
                 >
@@ -124,3 +122,6 @@ export class MainPanel extends Component {
 export default GoogleApiWrapper({
     apiKey: ("AIzaSyAmE0JB8YaxRry0zgD5VFQF9e1VqDGbJVE")
 })(MainPanel)
+
+
+

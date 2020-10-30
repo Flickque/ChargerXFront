@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import {Container, Card, ButtonGroup, Button, Badge, Row, ProgressBar, Modal, Form} from 'react-bootstrap';
 import styles from "./ChargersPanel.module.css"
 import Toast from "../Components/Toast";
+import Timer from "../Components/Timer";
 import clsx from 'clsx';
 
 function PurchaseStatus(props){
@@ -22,7 +23,7 @@ export default class ChargersPanel extends Component {
         super(props);
         this.state = {
             chargers: [],
-            time_amount: 0,
+            time_amount: 10,
             bam: 0
         };
         this.handleChange = this.handleChange.bind(this)
@@ -95,10 +96,11 @@ export default class ChargersPanel extends Component {
                                     }
                                     {
                                         charger.price==0.2 &&
+                                        <div>
                                         <Form>
                                             <Form.Label><i>Number of minutes:</i></Form.Label>
-                                            <Form.Control type="number" name="time_amount" min="0" defaultValue={0}  onChange={this.handleChange} placeholder="Minutes" />
-                                        </Form>
+                                            <Form.Control type="number" name="time_amount" min="0" defaultValue={10}  onChange={this.handleChange} placeholder="Minutes" />
+                                        </Form></div>
                                     }
                                     {
                                         (this.props.isAuthenticated&&

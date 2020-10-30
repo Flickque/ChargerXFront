@@ -13,8 +13,9 @@
 .searchResult{
     width: 100%;
     position: absolute;
-    z-index: 123;
+    z-index: 1000000000000;
     top: 75px;
     left: 0px;
-    display: none;
+    display: block;
+
 }

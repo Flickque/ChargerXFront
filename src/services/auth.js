@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseAddress = "http://localhost:4000"
+const baseAddress = "http://34.227.195.251"
 
 
 let userInfo = {

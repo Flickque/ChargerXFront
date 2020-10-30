@@ -8,7 +8,7 @@ class ChargerModal extends Component{
         this.handleMapClick = this.handleMapClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            time_amount:0
+            time_amount:10
         }
     }
 
@@ -72,9 +72,13 @@ class ChargerModal extends Component{
                     {
                         (this.props.isAuthenticated&&
                             <Modal.Footer className="justify-content-center">
-                                <Form>
-                                    <Form.Control type="number" name="amount" value={this.state.time_amount} onChange={this.handleChange} placeholder="Enter amount" />
-                                </Form>
+                                {
+                                    this.props.data.price==0.2 && (
+                                        <Form>
+                                            <Form.Control type="number" name="amount" value={this.state.time_amount} onChange={this.handleChange} placeholder="Enter amount" />
+                                        </Form>
+                                    )
+                                }
                                 <Button variant="primary" onClick={() => this.handleStartClick(this.props.data, this.state.time_amount)}>
                                     Start
                                 </Button>

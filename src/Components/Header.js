@@ -68,7 +68,7 @@ export default class Header extends Component {
                     <HiMenu className={styles.menu} onClick={this.handleClick}/>
                 }
                 <Logo/>
-                <Search />
+                <Search getMapCenterData={this.props.getMapCenterData} />
                 <Navbar.Collapse id="basic-navbar-nav" className={clsx(styles.navBar, "justify-content-end")}>
                     <Nav>
                         <NavItems handle={this.logoutClick} auth={Auth.isAuth()} data={JSON.parse(Auth.getAxiosAuth().auth)}></NavItems>

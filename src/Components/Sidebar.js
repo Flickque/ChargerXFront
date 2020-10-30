@@ -61,20 +61,25 @@ class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activePath: props.location.pathname,
+            activePath: this.props.location.pathname,
+            search: this.props.location.search
         }
     }
 
 
     render() {
+
         return(
+
             <Nav defaultActiveKey="/" className={sidebarStyle(this.props)}>
                 {
 
                     pages.map(page => (
-                        <Nav.Item className={itemStyle(this.props)} key={page.key}>
-                            <SideLink page={page} />
-                        </Nav.Item>
+                        !(this.props.isAuthenticated&&page.name=="Login")&&(
+                            <Nav.Item className={itemStyle(this.props)} key={page.key}>
+                                <SideLink page={page} />
+                            </Nav.Item>
+                        )
                     ))
 
                 }

@@ -38,12 +38,18 @@ class App extends Component {
                 status: false,
                 body: {}
             },
-            user_purchases:[]
+            user_purchases:[],
+            map:{
+                zoom: 8,
+                lat:65.059274,
+                lng:25.455584
+            }
         };
         this.handleSideBarToggled = this.handleSideBarToggled.bind(this)
         this.errorHandler = this.errorHandler.bind(this)
         this.getPurchases = this.getPurchases.bind(this)
         this.getUser = this.getUser.bind(this)
+        this.getMapCenterData = this.getMapCenterData.bind(this)
     }
 
     onLogin = () => {
@@ -87,6 +93,8 @@ class App extends Component {
     }
 
 
+
+
     getUser(){
         axios.get(Auth.baseAddress + '/user', this.getAuth()).then(results => {
             this.setState({ user: results.data[0] });
@@ -119,7 +127,6 @@ class App extends Component {
         this.setState({purchase: purchase}, () => {
             axios.post(AuthService.baseAddress + '/stop-charge', this.state.purchase, this.getAuth())
                 .then(results => {
-
                     this.setState({activePurchase: false})
                 }).catch(error =>
                 {
@@ -155,12 +162,28 @@ class App extends Component {
         })
     }
 
+    getMapCenterData(){
+        const url = new URL(window.location.href);
+        let lat = url.searchParams.get('lat')
+        let lng = url.searchParams.get('lng')
+
+        if (lat && lng) {
+            this.setState({
+                map:{
+                    zoom: 15,
+                    lat: lat,
+                    lng: lng
+                }
+            })
+        }
+    }
 
     componentDidMount() {
         this.getChargers()
         this.getPurchases()
         this.getActiveChargers()
         this.getUser()
+        this.getMapCenterData()
     }
 
 
@@ -169,16 +192,32 @@ class App extends Component {
             <React.Fragment>
                 <Router>
                     <div className="App">
-                        <Header isToggled={this.state.isToggled} handle={this.handleSideBarToggled}/>
+                        <Header isToggled={this.state.isToggled} getMapCenterData={this.getMapCenterData} handle={this.handleSideBarToggled}/>
                         <div id="page-content">
                             <Sidebar isAuthenticated={this.state.isAuthenticated} isToggled={this.state.isToggled}/>
                             <Switch>
                                 <div className="Mainpanelwrap">
                                     <Route exact path={'/'}>
-                                        <MainPanel isAuthenticated = {this.state.isAuthenticated} purchase={this.state.purchase} active={this.state.activePurchase} start={this.startCharging} stop={this.stopCharging} chargers={this.state.chargers}/>
+                                        <MainPanel
+                                            isAuthenticated = {this.state.isAuthenticated}
+                                            purchase={this.state.purchase}
+                                            active={this.state.activePurchase}
+                                            start={this.startCharging}
+                                            stop={this.stopCharging}
+                                            chargers={this.state.chargers}
+                                            map={this.state.map}
+                                        />
                                     </Route>
                                     <Route path={`/chargers`}>
-                                        <ChargersPanel isAuthenticated = {this.state.isAuthenticated} error={this.state.error} errorHandler={this.errorHandler} purchase={this.state.purchase} active={this.state.activePurchase} start={this.startCharging} stop={this.stopCharging} chargers={this.state.chargers}/>
+                                        <ChargersPanel
+                                            isAuthenticated = {this.state.isAuthenticated}
+                                            error={this.state.error}
+                                            errorHandler={this.errorHandler}
+                                            purchase={this.state.purchase}
+                                            active={this.state.activePurchase}
+                                            start={this.startCharging}
+                                            stop={this.stopCharging}
+                                            chargers={this.state.chargers}/>
                                     </Route>
                                     <Route path="/login" component={
                                         (routeProps) =>
@@ -196,10 +235,17 @@ class App extends Component {
                                         <Signup/>
                                     </Route>
                                     <ProtectedRoute isAuthenticated={this.state.isAuthenticated} path="/purchases" exact>
-                                        <PurchasesPanel getPurchases={this.getPurchases} purchases={this.state.user_purchases}/>
+                                        <PurchasesPanel
+                                            getPurchases={this.getPurchases}
+                                            purchases={this.state.user_purchases}
+                                            getAuth={this.getAuth}
+                                        />
                                     </ProtectedRoute>
                                     <ProtectedRoute isAuthenticated={this.state.isAuthenticated} path="/profile" exact>
-                                        <ProfilePanel getUser={this.getUser} user={this.state.user}/>
+                                        <ProfilePanel
+                                            getUser={this.getUser}
+                                            user={this.state.user}
+                                        />
                                     </ProtectedRoute>
 
                                 </div>

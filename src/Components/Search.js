@@ -1,47 +1,65 @@
-import React, { Component } from "react";
-import {Button, Form, FormControl, ListGroup} from "react-bootstrap";
-import { BsSearch } from "react-icons/bs";
-import styles from "./Search.module.css"
-import clsx from 'clsx';
-
-
-function SearchResult(){
-    return(
-        <div className={styles.searchResult}>
-            <ListGroup>
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-            </ListGroup>
-        </div>
-    )
-}
+import React, {Component} from "react";
+import SearchResult from "../Components/SearchResult";
+import axios from "axios";
+import AuthService from "../services/auth";
+import {Button, Form, FormControl} from "react-bootstrap";
+import clsx from "clsx";
+import styles from "./Search.module.css";
+import {BsXCircle} from "react-icons/bs/index";
 
 export default class Search extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            search: [],
+            value: '',
+            active: false
         }
-        this.handleFormClick = this.handleFormClick.bind(this);
+        this.handleFormClick = this.handleFormClick.bind(this)
+        this.getSearchChargers = this.getSearchChargers.bind(this)
+        this.closeSearch = this.closeSearch.bind(this)
+    }
+
+    getSearchChargers(event){
+        this.setState({value: event.target.value, active: true}, () => {
+            axios.post(AuthService.baseAddress + '/chargers-search', {search:this.state.value})
+                .then(results => {
+                    this.setState({ search: results.data });
+                }).catch(error =>
+                {
+                    console.log(error);
+                }
+            )
+        });
+
     }
 
     handleFormClick(){
         this.setState(state => ({
-            data: []
-        }));
+            data: [],
+            active: false
+        }))
     }
+
+
+    closeSearch(){
+        this.setState(state => ({
+            active: false,
+            value: ''
+        }))
+    }
+
+
 
     render() {
 
         return(
             <div>
-                <SearchResult />
+                {this.state.active&&(<SearchResult getMapCenterData={this.props.getMapCenterData} search={this.state.search}/>)}
                 <Form inline>
-                    <FormControl type="text" placeholder="Search" className={clsx(styles.search, "mr-sm-2")} onClick={this.handleFormClick} />
-                    <Button variant="outline-success"><BsSearch/></Button>
+                    <FormControl type="text" placeholder="Search" value={this.state.value} className={clsx(styles.search, "mr-sm-2")} onChange={this.getSearchChargers} onClick={this.handleFormClick} />
+                    <Button onClick={this.closeSearch} variant="outline-success"><BsXCircle/></Button>
                 </Form>
             </div>
 

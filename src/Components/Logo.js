@@ -6,12 +6,12 @@ import {Link} from "react-router-dom";
 
 function Header(){
     return(
-        <div>
-            <Link to="/" className={styles.logoWrap}>
+        <a>
+            <a href="/" className={styles.logoWrap}>
                 <img className={styles.logo} src={logo} />
                 <Navbar.Brand className={styles.title}>ChargingX</Navbar.Brand>
-            </Link>
-        </div>
+            </a>
+        </a>
 
     )
 }
